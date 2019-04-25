@@ -1,11 +1,16 @@
-# README
+# Rails proxy swap
 
-This is a simple proxy-server-like setup where it is essentially doing a url to url redirect, preserving any path and query strings. I built this because I needed to route an internet connected device to a different server than the one that it wanted to connect to.
+This is a simple proxy-server-like setup where it is essentially doing a url to url redirect, preserving any path and query strings (i.e. swapping out just the domain). I built this because I need to point an internet connected device to a different server than the one that it is hard-coded to request.
+
+It is intended to sit behind a dns redirect within your local network. I use dnsmasq - feel free to do it any way you choose. The dnsmasq redirects from a url to the computer running this rails server. The server grabs the path and query string from the original url, requests that from the replacement site and then passes the response back to the original requesting device.
+
+This is needed because dns redirect tools can only change the ip address that a domain points to, they can not point a domain to a different domain. Not all domains have static ips (such as sites hosted on heroku) so some kind of server in the middle is required.
 
 * Ruby version
 2.4.5
 
-* System dependencies
+* Starting the server
+bundle exec rails s
 
 * Configuration
 yarn run install
